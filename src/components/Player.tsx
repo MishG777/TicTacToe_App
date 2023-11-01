@@ -3,12 +3,12 @@ import React, { useState } from "react";
 type TPlayer = {
   initialName: string;
   symbol: string;
+  isActive: boolean;
 };
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
-//type BtnEvent = React.MouseEvent<HTMLButtonElement>;
 
-const Player: React.FC<TPlayer> = ({ symbol, initialName }) => {
+const Player: React.FC<TPlayer> = ({ symbol, initialName, isActive }) => {
   const [player, setPlayer] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -17,12 +17,11 @@ const Player: React.FC<TPlayer> = ({ symbol, initialName }) => {
   };
 
   const submitHandler = () => {
-    //e.preventDefault();
     setIsEditing((prev) => !prev);
   };
 
   return (
-    <li>
+    <li className={isActive ? "active" : undefined}>
       <span className="player">
         {!isEditing ? (
           <span className="player-name">{player}</span>

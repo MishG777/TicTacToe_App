@@ -57,7 +57,7 @@ body {
   position: relative;
 }
 
-.players {
+#players {
   list-style: none;
   padding: 0;
   margin: 1rem 0;
@@ -67,24 +67,25 @@ body {
   gap: 2rem;
 }
 
-.players li {
+#players li {
   display: flex;
   border: 2px solid transparent;
   align-items: center;
   width: 50%;
 }
 
-.players.highlight-player li.active {
-  border-color: #f6e35a;
+#players.highlight-player li.active {
+  border: 3px solid #f6e35a;
+  border-radius: 5px;
   animation: pulse 2s infinite ease-in-out;
 }
 
-.players.highlight-player li.active .player-name,
-.players.highlight-player li.active .player-symbol {
+#players.highlight-player li.active .player-name,
+#players.highlight-player li.active .player-symbol {
   color: #f6e35a;
 }
 
-.players button {
+#players button {
   width: 3rem;
   border: none;
   background: none;
@@ -100,7 +101,7 @@ body {
   font-size: 12px;
 }
 
-.players button:hover {
+#players button:hover {
   background-color: #ad9136;
   color: white;
 }
