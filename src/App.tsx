@@ -3,20 +3,33 @@ import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Log from "./components/Log";
 
+type Turns = {
+  square: {
+    row: number;
+    col: number;
+  };
+  player: string;
+}[];
+
+const ActivePlayer = (player: Turns) => {
+  let currPlayer = "X";
+
+  if (player.length > 0 && player[0].player === "X") {
+    currPlayer = "O";
+  }
+  return currPlayer;
+};
+
 function App() {
   const [gameLogger, setGameLogger] = useState<
     { square: { row: number; col: number }; player: string }[]
   >([]);
-  const [activePlayer, setActivePlayer] = useState("X");
+
+  const activePlayer = ActivePlayer(gameLogger);
 
   const SelectSquare = (rowIndx: number, colIndx: number) => {
-    setActivePlayer((prev) => (prev === "X" ? "O" : "X"));
     setGameLogger((prevTurns) => {
-      let currPlayer = "X";
-
-      if (prevTurns.length > 0 && prevTurns[0].player === "X") {
-        currPlayer = "O";
-      }
+      let currPlayer = ActivePlayer(prevTurns);
       const updatedTurns = [
         { square: { row: rowIndx, col: colIndx }, player: currPlayer },
         ...prevTurns,
@@ -24,6 +37,10 @@ function App() {
       return updatedTurns;
     });
   };
+
+  //if (gameLogger.length === 9) {
+  //  console.log(gameLogger);
+  //}
 
   return (
     <>
@@ -52,7 +69,7 @@ function App() {
           </ol>
           <GameBoard squareSelectProp={SelectSquare} turns={gameLogger} />
         </div>
-        <Log />
+        <Log turns={gameLogger} />
       </main>
     </>
   );

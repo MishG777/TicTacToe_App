@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import checkForWin from "./CheckForWin";
+import GameOver from "./GameOver";
 
 const initialGameBoard: (null | string)[][] = [
   [null, null, null],
@@ -18,6 +20,7 @@ type Props = {
   squareSelectProp: (rowInd: number, colIndx: number) => void;
   turns: Turns;
 };
+//-----------------------------------------------------------------------
 
 const GameBoard = ({ squareSelectProp, turns }: Props): JSX.Element => {
   let gameBoard = initialGameBoard;
@@ -29,27 +32,23 @@ const GameBoard = ({ squareSelectProp, turns }: Props): JSX.Element => {
     gameBoard[row][col] = player;
   }
 
-  //const [gameBoard, setGameBoard] = useState(initialGameBoard);
+  const winner = checkForWin(gameBoard);
 
-  //const squareHandler = (rowInd: number, colInd: number) => {
-  //  setGameBoard((prevBoard) => {
-  //    const updatedBoard = [...prevBoard.map((innerArray) => [...innerArray])];
-  //    console.log(updatedBoard);
-  //    updatedBoard[rowInd][colInd] = clickedSymbol;
-  //    return updatedBoard;
-  //  });
-
-  //  squareSelectProp();
-  //};
+  const hasDraw = turns.length === 9 && !winner;
 
   return (
     <ol className="game-board">
+      {(winner || hasDraw) && <GameOver winner={winner} />}
+
       {gameBoard.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => squareSelectProp(rowIndex, colIndex)}>
+                <button
+                  onClick={() => squareSelectProp(rowIndex, colIndex)}
+                  disabled={playerSymbol !== null}
+                >
                   {playerSymbol}
                 </button>
               </li>
