@@ -95,7 +95,6 @@ body {
   transition: color 0.2s;
   padding: 0.5rem 0.25rem 0.25rem 0.25rem;
   text-align: center;
-  /*border: 0.2px solid #c3ba78;*/
   margin-left: 4px;
   padding: 3px 9px;
   font-size: 12px;
@@ -281,6 +280,96 @@ ol {
 
 /*-------------------------------------------*/
 
+.playerSelector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 7rem;
+  margin-top: 40px;
+  width: 100%;
+}
+.playerSelector select {
+  font: inherit;
+  font-size: 1rem;
+  width: 20rem;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  outline: none;
+  padding: 0.5rem;
+
+  background-color: #46432f;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.rematch {
+  font: inherit;
+  font-size: 1rem;
+  margin-left: 1rem;
+  width: 10rem;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  outline: none;
+  padding: 0.5rem;
+  background-color: #46432f;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.rematch:hover {
+  background-color: #837c4f;
+}
+
+.playerSelector option {
+  cursor: pointer;
+}
+
+.playerSelector select.error {
+  border: 7px solid #46432f;
+  animation: error 1.5s infinite;
+}
+
+/*-------------------------------------------*/
+
+@keyframes slide-in-from-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-30%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-text {
+  0% {
+    color: #e1dec7;
+  }
+  50% {
+    color: #9f9d83;
+  }
+  100% {
+    color: #e1dec7;
+  }
+}
+
+@keyframes pulse-text-size {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @keyframes pulse {
   0% {
     border-color: #f6e35a;
@@ -296,17 +385,34 @@ ol {
   }
 }
 
-@keyframes slide-in-from-left {
+@keyframes error {
   0% {
-    opacity: 0;
-    transform: translateX(-30%);
+    border-color: #ffe95d;
+
+    box-shadow: 0 0 0 0 rgba(246, 227, 90, 0.4);
+  }
+  50% {
+    border-color: #978e51;
+    box-shadow: 0 0 0 0.5rem rgba(248, 165, 49, 0);
   }
   100% {
-    opacity: 1;
-    transform: translateX(0);
+    border-color: #8f7d24;
+
+    box-shadow: 0 0 0 0 rgba(246, 227, 90, 0);
   }
 }
 
-.winner {
-  text-align: center;
+/*for showing the "Game Over" element */
+@keyframes pop-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
 }
