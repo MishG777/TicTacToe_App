@@ -26,6 +26,13 @@ function App() {
   >([]);
 
   const [starterSymbol, setStarterSymbol] = useState<string>("");
+  const [playerName, setPlayerName] = useState<{
+    X: string;
+    O: string;
+  }>({
+    X: "Player 1",
+    O: "Player 2",
+  });
 
   const ActivePlayer = (player: Turns) => {
     let currPlayer = starterSymbol;
@@ -73,15 +80,25 @@ function App() {
     setStarterSymbol(selectedSymbol);
   };
 
+  //set player name, to output as winner
+
+  const SetPlayerName = (symb: "X" | "O", name: string): void => {
+    setPlayerName((prevPlayers) => {
+      return {
+        ...prevPlayers,
+        [symb]: name,
+      };
+    });
+  };
+
+  //const playerX = playerName["X"];
+  //const playerO = playerName["O"];
+
   return (
     <>
       <div className="titleElements">
         <h1 className="title">Tic-Tac-Toe</h1>
-        <img
-          className="logoImg"
-          src="../public/game-logo.png"
-          alt="logo picture"
-        />
+        <img className="logoImg" src="/game-logo.png" alt="logo picture" />
       </div>
       <div className="playerSelector">
         <select
@@ -108,15 +125,21 @@ function App() {
               symbol="X"
               initialName="Player 1"
               isActive={activePlayer === "X"}
+              onSetPlayerName={SetPlayerName}
             />
             <Player
               symbol="O"
               initialName="Player 2"
               isActive={activePlayer === "O"}
+              onSetPlayerName={SetPlayerName}
             />
           </ol>
           {(winner || hasDraw) && (
-            <GameOver winner={winner} GameRestart={GameRestart} />
+            <GameOver
+              winner={winner}
+              GameRestart={GameRestart}
+              playerName={playerName}
+            />
           )}
           <GameBoard
             squareSelectProp={SelectSquare}

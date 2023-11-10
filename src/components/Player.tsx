@@ -2,13 +2,19 @@ import React, { useState } from "react";
 
 type TPlayer = {
   initialName: string;
-  symbol: string;
+  symbol: "X" | "O";
   isActive: boolean;
+  onSetPlayerName: (x: "X" | "O", y: string) => void;
 };
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
-const Player: React.FC<TPlayer> = ({ symbol, initialName, isActive }) => {
+const Player: React.FC<TPlayer> = ({
+  symbol,
+  initialName,
+  isActive,
+  onSetPlayerName,
+}) => {
   const [player, setPlayer] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -18,6 +24,9 @@ const Player: React.FC<TPlayer> = ({ symbol, initialName, isActive }) => {
 
   const submitHandler = () => {
     setIsEditing((prev) => !prev);
+    if (isEditing) {
+      onSetPlayerName(symbol, player);
+    }
   };
 
   return (
@@ -43,6 +52,7 @@ const Player: React.FC<TPlayer> = ({ symbol, initialName, isActive }) => {
       <button
         onClick={() => {
           setPlayer(initialName);
+          onSetPlayerName(symbol, initialName);
           setIsEditing(false);
         }}
       >
