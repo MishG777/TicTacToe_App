@@ -1,19 +1,8 @@
 import React from "react";
 
-type TProps = {
-  winner: string | null;
-  GameRestart: () => void;
-  //playerO: string;
-  //playerX: string;
-  playerName: {
-    X: string;
-    O: string;
-  };
-};
+import { TProps } from "./Types/types";
 
 const GameOver = ({ winner, GameRestart, playerName }: TProps) => {
-  //console.log(playerX + " " + playerO);
-  //console.log(typeof winner);
   console.log(playerName["X"]);
   return (
     <div id="game-over">

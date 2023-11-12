@@ -1,11 +1,6 @@
 import React from "react";
 
-type Props = {
-  squareSelectProp: (rowInd: number, colIndx: number) => void;
-  turns: (string | null)[][];
-  starterSymbol: string;
-};
-//-----------------------------------------------------------------------
+import { Props } from "./Types/types";
 
 const GameBoard = ({
   squareSelectProp,

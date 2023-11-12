@@ -6,13 +6,7 @@ import Log from "./components/Log";
 import checkForWin from "./components/CheckForWin";
 import GameOver from "./components/GameOver";
 
-type Turns = {
-  square: {
-    row: number;
-    col: number;
-  };
-  player: string;
-}[];
+import { Turns } from "./components/Types/types";
 
 const initialGameBoard: (null | string)[][] = [
   [null, null, null],
@@ -110,8 +104,8 @@ function App() {
           {starterSymbol ? null : (
             <option value="0">First Select who starts</option>
           )}
-          <option value="X">X</option>
-          <option value="O">O</option>
+          <option value="X">X - {playerName["X"]}</option>
+          <option value="O">O - {playerName["O"]}</option>
         </select>
         <button className="rematch" onClick={GameRestart}>
           Rematch!

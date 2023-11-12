@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 
-type TPlayer = {
-  initialName: string;
-  symbol: "X" | "O";
-  isActive: boolean;
-  onSetPlayerName: (x: "X" | "O", y: string) => void;
-};
-
-type InputEvent = React.ChangeEvent<HTMLInputElement>;
+import { TPlayer, InputEvent } from "./Types/types";
 
 const Player: React.FC<TPlayer> = ({
   symbol,
