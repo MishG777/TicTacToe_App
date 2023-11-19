@@ -1,4 +1,6 @@
-export default function checkForWin(board: (string | null)[][]) {
+export default function checkForWin(
+  board: ("X" | "O" | null)[][]
+): "X" | "O" | null {
   // Define  possible winning combinations
   const winCombinations = [
     [

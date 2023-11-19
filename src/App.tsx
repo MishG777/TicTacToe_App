@@ -7,12 +7,31 @@ import checkForWin from "./components/CheckForWin";
 import GameOver from "./components/GameOver";
 
 import { Turns } from "./components/Types/types";
+import ScoreBoard from "./components/ScoreBoard";
 
-const initialGameBoard: (null | string)[][] = [
+const PLAYERS = {
+  X: "Player 1",
+  O: "Player 2",
+};
+
+const INITIAL_GAME_BOARD: (null | "X" | "O")[][] = [
   [null, null, null],
   [null, null, null],
   [null, null, null],
 ];
+
+function deriveGameBoard(gameLogger) {
+  let gameBoard = [...INITIAL_GAME_BOARD].map((innerArr) => [...innerArr]);
+
+  for (const turn of gameLogger) {
+    const { square, player } = turn;
+    const { row, col } = square;
+
+    gameBoard[row][col] = player;
+  }
+
+  return gameBoard;
+}
 
 function App() {
   const [gameLogger, setGameLogger] = useState<
@@ -23,10 +42,7 @@ function App() {
   const [playerName, setPlayerName] = useState<{
     X: string;
     O: string;
-  }>({
-    X: "Player 1",
-    O: "Player 2",
-  });
+  }>(PLAYERS);
 
   const ActivePlayer = (player: Turns) => {
     let currPlayer = starterSymbol;
@@ -41,6 +57,8 @@ function App() {
 
   const activePlayer = ActivePlayer(gameLogger);
 
+  const gameBoard = deriveGameBoard(gameLogger);
+
   const SelectSquare = (rowIndx: number, colIndx: number) => {
     setGameLogger((prevTurns) => {
       let currPlayer = ActivePlayer(prevTurns);
@@ -51,15 +69,6 @@ function App() {
       return updatedTurns;
     });
   };
-
-  let gameBoard = [...initialGameBoard].map((innerArr) => [...innerArr]);
-
-  for (const turn of gameLogger) {
-    const { square, player } = turn;
-    const { row, col } = square;
-
-    gameBoard[row][col] = player;
-  }
 
   const winner = checkForWin(gameBoard);
   const hasDraw = gameLogger.length === 9 && !winner;
@@ -84,9 +93,6 @@ function App() {
       };
     });
   };
-
-  //const playerX = playerName["X"];
-  //const playerO = playerName["O"];
 
   return (
     <>
@@ -114,16 +120,17 @@ function App() {
 
       <main>
         <div className="mainContainer">
+          <ScoreBoard winner={winner} />
           <ol id="players" className="highlight-player">
             <Player
               symbol="X"
-              initialName="Player 1"
+              initialName={PLAYERS.X}
               isActive={activePlayer === "X"}
               onSetPlayerName={SetPlayerName}
             />
             <Player
               symbol="O"
-              initialName="Player 2"
+              initialName={PLAYERS.O}
               isActive={activePlayer === "O"}
               onSetPlayerName={SetPlayerName}
             />

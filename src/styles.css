@@ -346,6 +346,40 @@ ol {
   animation: error 1.5s infinite;
 }
 
+/*---------ScoreBoard----------*/
+
+.scoreBox {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 3rem;
+  border: 1px solid var(--yellow);
+  border-radius: 17px;
+}
+.scoreBox li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /*border: 2px solid var(--brown);*/
+  height: 90%;
+  width: 10%;
+}
+
+.ScoreButton {
+  outline: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.ScoreButton:hover {
+  border: 1px solid var(--yellow);
+  color: var(--yellow);
+}
+
 /*-------------------------------------------*/
 
 @keyframes slide-in-from-left {
